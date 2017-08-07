@@ -58,6 +58,23 @@ int main()
 {
 	GrafoFamiliar *grafos = new GrafoFamiliar();
 
+	Persona * ale = new Persona();
+	ale->setId("001");
+	ale->setNombre("Alejandro Columna");
+	ale->setFechaDeNacimiento("1998");
+
+	Persona * dannySr = new Persona();
+	dannySr->setId("002");
+	dannySr->setNombre("Danny Columna Sr");
+	dannySr->setFechaDeNacimiento("1960");
+
+	grafos->AgregarPersona(ale, NULL);
+
+	Lista<RelacionPersona> * relaciones = new Lista<RelacionPersona>();
+	RelacionPersona * r = new RelacionPersona(ale->getId(), TIPO_PATERNAL);
+	relaciones->InsertarFinal(r);
+	grafos->AgregarPersona(dannySr, relaciones);
+
 
 	grafos->DesplegarTodo();
 

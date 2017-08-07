@@ -7,9 +7,9 @@ MatrizAdyacencia::MatrizAdyacencia(int n)
 	this->tamano = n;
 	//visited = new bool[n];
 	arr = new int*[MAX_TAMANO];
-	for (int i = 0; i < n; i++) {
-		arr[i] = new int[n];
-		for (int j = 0; j < n; j++) {
+	for (int i = 0; i < MAX_TAMANO; i++) {
+		arr[i] = new int[MAX_TAMANO];
+		for (int j = 0; j < MAX_TAMANO; j++) {
 			arr[i][j] = 0;
 		}
 	}
@@ -36,7 +36,8 @@ void MatrizAdyacencia::agregarArista(int origin, int destin, int t) {
 		cout << "Invalid edge!\n";
 	}
 	else {
-		arr[origin - 1][destin - 1] = t;
+		//arr[origin - 1][destin - 1] = t;
+		arr[origin][destin] = t;
 	}
 }
 
