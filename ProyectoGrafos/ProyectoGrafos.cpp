@@ -74,6 +74,11 @@ int main()
 	dannySr->setNombre("Danny Columna Sr");
 	dannySr->setFechaDeNacimiento("1960");
 
+	Persona * patricia = new Persona();
+	patricia->setId("004");
+	patricia->setNombre("Patricia Segura");
+	patricia->setFechaDeNacimiento("1962");
+
 	grafos->AgregarPersona(ale, NULL);
 	grafos->AgregarPersona(geo, NULL);
 
@@ -83,8 +88,14 @@ int main()
 	relaciones->InsertarFinal(r1);
 	relaciones->InsertarFinal(r2);
 	grafos->AgregarPersona(dannySr, relaciones);
+	//delete relaciones;
 
-	
+	Lista<RelacionPersona> * relaciones2 = new Lista<RelacionPersona>();
+	RelacionPersona * r3 = new RelacionPersona(dannySr->getId(), TIPO_CONYUGE);
+	relaciones2->InsertarFinal(r3);
+	grafos->AgregarPersona(patricia, relaciones2);
+
+
 	grafos->DesplegarTodo();
 	cout << "----" << endl;
 	grafos->DesplegarPorPersona();
