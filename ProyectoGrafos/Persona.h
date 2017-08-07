@@ -6,13 +6,16 @@ private:
 	char* id;
 	char* nombre;
 	char* fechaDeNacimiento;
-
+	char sexo;
 public:
 	Persona();
 	~Persona();
 
 	void setId(char *);
 	char *getId();
+
+	void setSexo(char );
+	char getSexo();
 
 	void setNombre(char *);
 	char *getNombre();

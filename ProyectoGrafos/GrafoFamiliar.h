@@ -16,6 +16,10 @@
 #define TIPO_CONYUGE 3
 #define TIPO_HERMANO 4
 
+
+#define SEXO_MASCULINO 'm'
+#define SEXO_FEMENINO 'f'
+
 class GrafoFamiliar
 {
 private:
@@ -26,7 +30,7 @@ private:
 	void imprimirRelaciones(PersonaGrafo*, Lista<RelacionMatriz> *);
 	PersonaGrafo * buscarPersonaPorIndiceEnMatriz(int);
 	//Lista< RelacionMatriz > * obtenerRelacionesEnMatriz(int);
-	//Lista< RelacionMatriz > * buscarHermanos(int);
+	Lista< RelacionMatriz > * buscarHermanos(int);
 
 public:
 	GrafoFamiliar();

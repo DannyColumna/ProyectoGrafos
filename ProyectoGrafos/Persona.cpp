@@ -21,6 +21,17 @@ char * Persona::getId()
 	return this->id;
 }
 
+
+void Persona::setSexo(char sexo)
+{
+	this->sexo = sexo;
+}
+
+char  Persona::getSexo()
+{
+	return this->sexo;
+}
+
 void Persona::setNombre(char * nombre)
 {
 	this->nombre = nombre;

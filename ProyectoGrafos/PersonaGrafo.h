@@ -7,7 +7,7 @@ private:
 	char * ID;
 	char * nombre;
 	char * fechaNacimiento;
-
+	char sexo;
 public:
 	PersonaGrafo();
 	PersonaGrafo(int, char*, char*, char*);
@@ -22,6 +22,10 @@ public:
 	char *getId();
 	char *getNombre();
 	char *getFechaNacimiento();
+
+	void setSexo(char);
+	char getSexo();
+
 	friend ostream& operator<<(ostream& os, const PersonaGrafo& pg);
 	friend ostream& operator<<(ostream& os,  PersonaGrafo* pg);
 };

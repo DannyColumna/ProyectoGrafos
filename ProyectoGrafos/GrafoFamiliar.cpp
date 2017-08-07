@@ -108,9 +108,13 @@ void GrafoFamiliar::DesplegarPorPersona()
 		}
 		Lista<RelacionMatriz> * relaciones = matrizAdyacencia->obtenerCamposEnFila(persona->getIndiceEnMatriz());//obtenerRelacionesEnMatriz(persona->getIndiceEnMatriz());
 			
-
+		
 		if (relaciones != NULL && !relaciones->EstaVacia()) {
 			imprimirRelaciones(persona, relaciones);
+			Lista<RelacionMatriz> * hermanos = buscarHermanos(persona->getIndiceEnMatriz());
+			if (hermanos != NULL && !hermanos->EstaVacia()) {
+				imprimirRelaciones(persona, hermanos);
+			}
 		}
 		else {
 			cout << persona << " no tiene relaciones familiares" << endl;
@@ -137,6 +141,9 @@ void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* 
 		else if (r->getValor() == TIPO_CONYUGE) {
 			cout << " es conyuge de ";
 		}
+		else if (r->getValor() == TIPO_HERMANO) {
+			cout << " es hermano de ";
+		}
 		else {
 			cout << "[ERROR]NO DEBERIA SUCEDER!!";
 		}
@@ -145,7 +152,7 @@ void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* 
 			cout << " [Error] ";
 		}
 		else {
-			cout << pRelacionada << endl;
+			cout << pRelacionada->getNombre() << endl;
 		}
 		auxP = auxP->GetSiguiente();
 	}
@@ -173,10 +180,78 @@ PersonaGrafo * GrafoFamiliar::buscarPersonaPorIndiceEnMatriz(int indice)
 	//return resultado;
 //}
 
-//Lista<RelacionMatriz>* GrafoFamiliar::buscarHermanos(int)
-//{
-//	return nullptr;
-//}
+Lista<RelacionMatriz>* GrafoFamiliar::buscarHermanos(int indice)
+{
+	int indicePaternal1 = -1;
+	int indicePaternal2 = -1;
+
+	Lista<RelacionMatriz> * hermanos = new Lista<RelacionMatriz>();
+	// obtener padres
+	Lista<RelacionMatriz> * resultado = matrizAdyacencia->obtenerCamposEnFila(indice);
+	if (resultado != NULL && !resultado->EstaVacia()) {
+
+		Nodo<RelacionMatriz> * auxP = resultado->GetCabeza();
+
+
+		while (auxP != NULL) {
+			RelacionMatriz * r = auxP->GetObjeto();
+			
+			if (r->getValor() == TIPO_DESCEDIENTE) {
+				if (indicePaternal1 == -1) {
+					indicePaternal1 = r->getIndice();
+				}
+				else {
+					indicePaternal2 = r->getIndice();
+				}
+			}
+
+			
+			auxP = auxP->GetSiguiente();
+		}
+
+	}
+
+
+	// para cada padre, extraer hijos
+	if (indicePaternal1 != -1) {
+		Lista<RelacionMatriz> * relacionesPaternal1 = matrizAdyacencia->obtenerCamposEnFila(indicePaternal1);
+		if (relacionesPaternal1 != NULL && !relacionesPaternal1->EstaVacia()) {
+
+			Nodo<RelacionMatriz> * auxP = relacionesPaternal1->GetCabeza();
+
+
+			while (auxP != NULL) {
+				RelacionMatriz * r = auxP->GetObjeto();
+
+				if (r->getValor() == TIPO_PATERNAL && indice != r->getIndice()) {
+					// agregar hermano
+					hermanos->InsertarUnico(new RelacionMatriz(r->getIndice(), TIPO_HERMANO));
+				}
+				auxP = auxP->GetSiguiente();
+			}
+		}
+	}
+
+	if (indicePaternal2 != -1) {
+		Lista<RelacionMatriz> * relacionesPaternal2 = matrizAdyacencia->obtenerCamposEnFila(indicePaternal2);
+		if (relacionesPaternal2 != NULL && !relacionesPaternal2->EstaVacia()) {
+
+			Nodo<RelacionMatriz> * auxP = relacionesPaternal2->GetCabeza();
+
+
+			while (auxP != NULL) {
+				RelacionMatriz * r = auxP->GetObjeto();
+
+				if (r->getValor() == TIPO_PATERNAL&& indice != r->getIndice()) {
+					// agregar hermano
+					hermanos->InsertarUnico(new RelacionMatriz(r->getIndice(), TIPO_HERMANO));
+				}
+				auxP = auxP->GetSiguiente();
+			}
+		}
+	}
+	return hermanos;
+}
 
 void GrafoFamiliar::DesplegarTodo()
 {

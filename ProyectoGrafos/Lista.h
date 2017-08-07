@@ -15,6 +15,7 @@ public:
 
 	void InsertarInicio(T *);
 	void InsertarFinal(T *);
+	void InsertarUnico(T *);
 
 	T *DirObjeto(int);
 	T *DirSiguienteObjeto(T *);
@@ -72,6 +73,32 @@ void Lista<T>::InsertarFinal(T *objeto) {
 		}
 		Temp->SetAnterior(Aux);
 		Aux->SetSiguiente(Temp);
+	}
+	else {
+		this->SetCabeza(Temp);
+	}
+}
+
+template<typename T>
+void Lista<T>::InsertarUnico(T *objeto)
+{
+	// Insertar unicos
+	Nodo<T> *Temp = new Nodo<T>(objeto);
+	if (!this->GetCabeza() == NULL) {
+		Nodo<T> *Aux = this->GetCabeza();
+		bool duplicado = false;
+		while (Aux->GetSiguiente() != NULL) {
+			T* ojetoAux = Aux->GetObjeto();
+			if (ojetoAux == objeto) {
+				duplicado = true;
+				break;
+			}
+			Aux = Aux->GetSiguiente();
+		}
+		if (!duplicado) {
+			Temp->SetAnterior(Aux);
+			Aux->SetSiguiente(Temp);
+		}
 	}
 	else {
 		this->SetCabeza(Temp);

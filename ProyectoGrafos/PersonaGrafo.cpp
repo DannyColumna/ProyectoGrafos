@@ -52,6 +52,17 @@ char * PersonaGrafo::getFechaNacimiento() {
 	return this->fechaNacimiento;
 }
 
+
+
+void PersonaGrafo::setSexo(char sexo)
+{
+	this->sexo = sexo;
+}
+
+char  PersonaGrafo::getSexo()
+{
+	return this->sexo;
+}
 ostream& operator<<(ostream& os, const PersonaGrafo & pg)
 {
 	os << "{" << pg.indiceEnMatriz << "," << pg.ID << "," << pg.nombre << "," << pg.fechaNacimiento << "}";
