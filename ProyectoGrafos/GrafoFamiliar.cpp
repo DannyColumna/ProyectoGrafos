@@ -102,7 +102,12 @@ void GrafoFamiliar::DesplegarPorPersona()
 
 	while (auxP != NULL) {
 		PersonaGrafo * persona = auxP->GetObjeto();
-		Lista<RelacionMatriz> * relaciones = matrizAdyacencia->obtenerCamposEnFila(persona->getIndiceEnMatriz());
+		if (persona == NULL) {
+			auxP = auxP->GetSiguiente();
+			continue;
+		}
+		Lista<RelacionMatriz> * relaciones = matrizAdyacencia->obtenerCamposEnFila(persona->getIndiceEnMatriz());//obtenerRelacionesEnMatriz(persona->getIndiceEnMatriz());
+			
 
 		if (relaciones != NULL && !relaciones->EstaVacia()) {
 			imprimirRelaciones(persona, relaciones);
@@ -135,8 +140,13 @@ void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* 
 		else {
 			cout << "[ERROR]NO DEBERIA SUCEDER!!";
 		}
-		cout << buscarPersonaPorIndiceEnMatriz(r->getIndice());
-		cout << endl;
+		PersonaGrafo * pRelacionada =  buscarPersonaPorIndiceEnMatriz(r->getIndice());
+		if (pRelacionada == NULL) {
+			cout << " [Error] ";
+		}
+		else {
+			cout << pRelacionada << endl;
+		}
 		auxP = auxP->GetSiguiente();
 	}
 }
@@ -144,7 +154,7 @@ void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* 
 PersonaGrafo * GrafoFamiliar::buscarPersonaPorIndiceEnMatriz(int indice)
 {
 	PersonaGrafo *resultado = NULL;
-	Nodo<PersonaGrafo> *aux = new Nodo<PersonaGrafo>();
+	Nodo<PersonaGrafo> *aux = this->personas->GetCabeza();
 	while (aux != NULL) {
 		if (aux->GetObjeto()->getIndiceEnMatriz()== indice) {
 			resultado = aux->GetObjeto();
@@ -154,6 +164,19 @@ PersonaGrafo * GrafoFamiliar::buscarPersonaPorIndiceEnMatriz(int indice)
 	}
 	return resultado;
 }
+
+//Lista<RelacionMatriz>* GrafoFamiliar::obtenerRelacionesEnMatriz(int indice)
+//{
+	//Lista<RelacionMatriz> * resultado = matrizAdyacencia->obtenerCamposEnFila(indice);
+
+	//Lista<RelacionMatriz> * resultado2 = buscarHermanos( indice);
+	//return resultado;
+//}
+
+//Lista<RelacionMatriz>* GrafoFamiliar::buscarHermanos(int)
+//{
+//	return nullptr;
+//}
 
 void GrafoFamiliar::DesplegarTodo()
 {

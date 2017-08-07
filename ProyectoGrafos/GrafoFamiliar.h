@@ -14,9 +14,8 @@
 #define TIPO_DESCEDIENTE 1
 #define TIPO_PATERNAL 2
 #define TIPO_CONYUGE 3
-template class Lista<RelacionMatriz>;
-template class Lista<RelacionPersona>;
-template class Lista<PersonaGrafo>;
+#define TIPO_HERMANO 4
+
 class GrafoFamiliar
 {
 private:
@@ -26,6 +25,9 @@ private:
 	void agregarRelaciones(PersonaGrafo*, Lista<RelacionPersona> *);
 	void imprimirRelaciones(PersonaGrafo*, Lista<RelacionMatriz> *);
 	PersonaGrafo * buscarPersonaPorIndiceEnMatriz(int);
+	//Lista< RelacionMatriz > * obtenerRelacionesEnMatriz(int);
+	//Lista< RelacionMatriz > * buscarHermanos(int);
+
 public:
 	GrafoFamiliar();
 	~GrafoFamiliar();

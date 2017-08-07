@@ -59,13 +59,7 @@
     <ClCompile Include="MatrizAdyacencia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Nodo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PersonaGrafo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lista.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RelacionPersona.cpp">

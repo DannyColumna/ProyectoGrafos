@@ -1,7 +1,7 @@
 #pragma once
 #include "Lista.h"
 #include "RelacionMatriz.h"
-template class Lista<RelacionMatriz>;
+
 class MatrizAdyacencia
 {
 private:
