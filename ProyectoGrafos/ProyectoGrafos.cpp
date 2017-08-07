@@ -1,9 +1,10 @@
 // Grafos.cpp : Defines the entry point for the console application.
 //
-
+#pragma once
 #include "stdafx.h"
 #include "GrafoFamiliar.h"
-
+#include "Lista.h"
+#include "Nodo.h"
 
 void Menu() {
 	cout << "\n" << "1. Agregar persona. " << endl;
@@ -63,21 +64,31 @@ int main()
 	ale->setNombre("Alejandro Columna");
 	ale->setFechaDeNacimiento("1998");
 
+	Persona * geo = new Persona();
+	geo->setId("002");
+	geo->setNombre("Geovanny Columna");
+	geo->setFechaDeNacimiento("2003");
+
 	Persona * dannySr = new Persona();
-	dannySr->setId("002");
+	dannySr->setId("003");
 	dannySr->setNombre("Danny Columna Sr");
 	dannySr->setFechaDeNacimiento("1960");
 
 	grafos->AgregarPersona(ale, NULL);
+	grafos->AgregarPersona(geo, NULL);
 
 	Lista<RelacionPersona> * relaciones = new Lista<RelacionPersona>();
-	RelacionPersona * r = new RelacionPersona(ale->getId(), TIPO_PATERNAL);
-	relaciones->InsertarFinal(r);
+	RelacionPersona * r1 = new RelacionPersona(ale->getId(), TIPO_PATERNAL);
+	RelacionPersona * r2 = new RelacionPersona(geo->getId(), TIPO_PATERNAL);
+	relaciones->InsertarFinal(r1);
+	relaciones->InsertarFinal(r2);
 	grafos->AgregarPersona(dannySr, relaciones);
 
-
+	
 	grafos->DesplegarTodo();
-
+	cout << "----" << endl;
+	grafos->DesplegarPorPersona();
+	
 	return 0;
 }
 

@@ -1,5 +1,6 @@
 #pragma once
-template <class T>
+
+template <typename T>
 class Nodo
 {
 private:
@@ -21,4 +22,8 @@ public:
 
 	void SetAnterior(Nodo<T> *);
 	Nodo<T> *GetAnterior();
+
+	//friend ostream& operator<<(ostream& os, const PersonaGrafo& pg);
+	//friend ostream& operator<<(ostream& os, PersonaGrafo* pg);
 };
+#include "Nodo.cpp"

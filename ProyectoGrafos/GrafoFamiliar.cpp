@@ -2,7 +2,6 @@
 #include "GrafoFamiliar.h"
 
 
-
 GrafoFamiliar::GrafoFamiliar()
 {
 
@@ -72,6 +71,8 @@ void GrafoFamiliar::agregarRelaciones(PersonaGrafo *persona, Lista<RelacionPerso
 }
 
 
+
+
 void GrafoFamiliar::EliminarPersona(int ID)
 {
 }
@@ -93,6 +94,65 @@ PersonaGrafo *GrafoFamiliar::BuscarPersona(char * ID)
 	}
 
 	return p;
+}
+
+void GrafoFamiliar::DesplegarPorPersona()
+{
+	Nodo<PersonaGrafo> * auxP = this->personas->GetCabeza();
+
+	while (auxP != NULL) {
+		PersonaGrafo * persona = auxP->GetObjeto();
+		Lista<RelacionMatriz> * relaciones = matrizAdyacencia->obtenerCamposEnFila(persona->getIndiceEnMatriz());
+
+		if (relaciones != NULL && !relaciones->EstaVacia()) {
+			imprimirRelaciones(persona, relaciones);
+		}
+		else {
+			cout << persona << " no tiene relaciones familiares" << endl;
+		}
+
+		auxP = auxP->GetSiguiente();
+	}
+}
+
+void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* relaciones)
+{
+	Nodo<RelacionMatriz> * auxP = relaciones->GetCabeza();
+
+
+	while (auxP != NULL) {
+		RelacionMatriz * r = auxP->GetObjeto();
+		cout << p->getNombre();
+		if (r->getValor() == TIPO_PATERNAL) {
+			cout << " es padre de ";
+		}
+		else if (r->getValor() == TIPO_DESCEDIENTE) {
+			cout << " es hijo de ";
+		}
+		else if (r->getValor() == TIPO_CONYUGE) {
+			cout << " es conyuge de ";
+		}
+		else {
+			cout << "[ERROR]NO DEBERIA SUCEDER!!";
+		}
+		cout << buscarPersonaPorIndiceEnMatriz(r->getIndice());
+		cout << endl;
+		auxP = auxP->GetSiguiente();
+	}
+}
+
+PersonaGrafo * GrafoFamiliar::buscarPersonaPorIndiceEnMatriz(int indice)
+{
+	PersonaGrafo *resultado = NULL;
+	Nodo<PersonaGrafo> *aux = new Nodo<PersonaGrafo>();
+	while (aux != NULL) {
+		if (aux->GetObjeto()->getIndiceEnMatriz()== indice) {
+			resultado = aux->GetObjeto();
+			break;
+		}
+		aux = aux->GetSiguiente();
+	}
+	return resultado;
 }
 
 void GrafoFamiliar::DesplegarTodo()

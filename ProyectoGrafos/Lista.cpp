@@ -1,27 +1,28 @@
+//#pragma once
 #include "stdafx.h"
 #include "Lista.h"
 
-template <class T>
+template <typename T>
 Lista<T>::Lista()
 {
 }
 
-template <class T>
+template <typename T>
 Lista<T>::~Lista()
 {
 }
 
-template <class T>
+template <typename T>
 void Lista<T>::SetCabeza(Nodo<T> *_cabeza) {
 	this->cabeza = _cabeza;
 }
 
-template <class T>
+template <typename T>
 Nodo<T> *Lista<T>::GetCabeza() {
 	return this->cabeza;
 }
 
-template <class T>
+template <typename T>
 void Lista<T>::InsertarInicio(T *objeto) {
 	Nodo<T> *Temp = new Nodo<T>(objeto);
 	Temp->SetSiguiente(this->GetCabeza());
@@ -31,7 +32,7 @@ void Lista<T>::InsertarInicio(T *objeto) {
 	this->SetCabeza(Temp);
 }
 
-template <class T>
+template <typename T>
 void Lista<T>::InsertarFinal(T *objeto) {
 	Nodo<T> *Temp = new Nodo<T>(objeto);
 	if (!this->GetCabeza() == NULL) {
@@ -70,7 +71,8 @@ void Lista<T>::DesplegarLinear() {
 	else {
 		Nodo<T> *Aux = this->GetCabeza();
 		while (Aux != NULL) {
-			cout << Aux->GetObjeto() << " ";
+			T * t = (Aux->GetObjeto());
+			cout <<t<< " ";
 			Aux = Aux->GetSiguiente();
 		}
 	}
@@ -156,3 +158,4 @@ int Lista<T>::Tamano() {
 	}
 	return contador;
 }
+

@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 class Persona
 {
 private:
@@ -16,6 +17,8 @@ public:
 	void setNombre(char *);
 	char *getNombre();
 
-	void setFechaDeNacimiento(char *);
+    void setFechaDeNacimiento(char *);
 	char *getFechaDeNacimiento();
+	friend ostream& operator<<(ostream& os, const Persona p);
+	friend ostream& operator<<(ostream& os, const Persona* p);
 };

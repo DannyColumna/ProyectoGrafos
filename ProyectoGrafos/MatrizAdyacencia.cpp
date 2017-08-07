@@ -55,3 +55,16 @@ void MatrizAdyacencia::desplegar() {
 		cout << endl;
 	}
 }
+
+Lista<RelacionMatriz> * MatrizAdyacencia::obtenerCamposEnFila(int indice)
+{
+	Lista<RelacionMatriz> * campos = new Lista<RelacionMatriz>();
+	for (int j = 0; j < this->tamano; j++) {
+		int valor= arr[indice][j];
+		if (valor > 0 && indice != j) {
+			campos->InsertarFinal(new RelacionMatriz(j, valor));
+		}
+	}
+
+	return campos;
+}

@@ -1,5 +1,7 @@
 #pragma once
-
+#include "Lista.h"
+#include "RelacionMatriz.h"
+template class Lista<RelacionMatriz>;
 class MatrizAdyacencia
 {
 private:
@@ -16,4 +18,5 @@ public:
 	void incrementar();
 	void agregarArista(int, int, int);
 	void desplegar();
+	Lista<RelacionMatriz> * obtenerCamposEnFila(int);
 };

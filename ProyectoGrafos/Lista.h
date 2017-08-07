@@ -1,6 +1,6 @@
 #pragma once
-#include "Nodo.cpp"
-template <class T>
+#include "Nodo.h"
+template <typename T>
 class Lista
 {
 private:
@@ -29,3 +29,4 @@ public:
 
 	int Tamano();
 };
+#include "Lista.cpp"

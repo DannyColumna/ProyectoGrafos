@@ -51,3 +51,15 @@ char * PersonaGrafo::getNombre()
 char * PersonaGrafo::getFechaNacimiento() {
 	return this->fechaNacimiento;
 }
+
+ostream& operator<<(ostream& os, const PersonaGrafo & pg)
+{
+	os << "{" << pg.indiceEnMatriz << "," << pg.ID << "," << pg.nombre << "," << pg.fechaNacimiento << "}";
+	return os;
+}
+
+ostream& operator<<(ostream& os,  PersonaGrafo * pg)
+{
+	os << "{" << pg->indiceEnMatriz << "," << pg->ID << "," << pg->nombre << "," << pg->fechaNacimiento << "}";
+	return os;
+}
