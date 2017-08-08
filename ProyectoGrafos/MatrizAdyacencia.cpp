@@ -2,10 +2,8 @@
 #include "MatrizAdyacencia.h"
 
 
-MatrizAdyacencia::MatrizAdyacencia(int n)
-{
-	this->tamano = n;
-	//visited = new bool[n];
+MatrizAdyacencia::MatrizAdyacencia(int numero) {
+	this->tamano = numero;
 	arr = new int*[MAX_TAMANO];
 	for (int i = 0; i < MAX_TAMANO; i++) {
 		arr[i] = new int[MAX_TAMANO];
@@ -15,32 +13,25 @@ MatrizAdyacencia::MatrizAdyacencia(int n)
 	}
 }
 
-
-MatrizAdyacencia::~MatrizAdyacencia()
-{
+MatrizAdyacencia::~MatrizAdyacencia() {
 	for (int i = 0; i < this->tamano; i++) {
 		delete arr[i];
 	}
-
 	delete arr;
-
 }
 
 void MatrizAdyacencia::incrementar() {
 	this->tamano = (this->tamano + 1);
 }
 
-
-void MatrizAdyacencia::agregarArista(int origin, int destin, int t) {
-	if (origin > this->tamano || destin > this->tamano || origin < 0 || destin < 0) {
-		cout << "Invalid edge!\n";
+void MatrizAdyacencia::agregarArista(int origen, int destino, int t) {
+	if (origen > this->tamano || destino > this->tamano || origen < 0 || destino < 0) {
+		cout << "Lado es invalido...\n";
 	}
 	else {
-		//arr[origin - 1][destin - 1] = t;
-		arr[origin][destin] = t;
+		arr[origen][destino] = t;
 	}
 }
-
 
 int MatrizAdyacencia::getTamano() {
 	return this->tamano;
@@ -56,8 +47,7 @@ void MatrizAdyacencia::desplegar() {
 	}
 }
 
-Lista<RelacionMatriz> * MatrizAdyacencia::obtenerCamposEnFila(int indice)
-{
+Lista<RelacionMatriz> * MatrizAdyacencia::obtenerCamposEnFila(int indice) {
 	Lista<RelacionMatriz> * campos = new Lista<RelacionMatriz>();
 	for (int j = 0; j < this->tamano; j++) {
 		int valor= arr[indice][j];
@@ -65,6 +55,21 @@ Lista<RelacionMatriz> * MatrizAdyacencia::obtenerCamposEnFila(int indice)
 			campos->InsertarFinal(new RelacionMatriz(j, valor));
 		}
 	}
-
 	return campos;
+}
+
+void MatrizAdyacencia::eliminarCamposEnIndice(int indice)
+{
+	for (int j = 0; j < this->tamano; j++) {
+		arr[indice][j] = 0;
+	}
+
+	for (int i = 0; i < this->tamano; i++) {
+		arr[i][indice] = 0;
+	}
+}
+
+void MatrizAdyacencia::editarArista(int origen, int destino, int t)
+{
+	arr[origen][destino] = t;
 }

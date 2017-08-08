@@ -72,12 +72,13 @@ int main()
 	Persona * dannySr = new Persona();
 	dannySr->setId("003");
 	dannySr->setNombre("Danny Columna Sr");
-	dannySr->setFechaDeNacimiento("1960");
+	dannySr->setFechaDeNacimiento("1971");
 
 	Persona * patricia = new Persona();
+	patricia->setSexo(SEXO_FEMENINO);
 	patricia->setId("004");
 	patricia->setNombre("Patricia Segura");
-	patricia->setFechaDeNacimiento("1962");
+	patricia->setFechaDeNacimiento("1974");
 
 	grafos->AgregarPersona(ale, NULL);
 	grafos->AgregarPersona(geo, NULL);
@@ -91,15 +92,48 @@ int main()
 	//delete relaciones;
 
 	Lista<RelacionPersona> * relaciones2 = new Lista<RelacionPersona>();
-	RelacionPersona * r3 = new RelacionPersona(dannySr->getId(), TIPO_CONYUGE);
-	relaciones2->InsertarFinal(r3);
+	//RelacionPersona * r3 = new RelacionPersona(dannySr->getId(), TIPO_CONYUGE);
+	relaciones2->InsertarFinal(new RelacionPersona(dannySr->getId(), TIPO_CONYUGE));
+	relaciones2->InsertarFinal(new RelacionPersona(ale->getId(), TIPO_PATERNAL));
+	relaciones2->InsertarFinal(new RelacionPersona(geo->getId(), TIPO_PATERNAL));
 	grafos->AgregarPersona(patricia, relaciones2);
+
+
+	//abuelo
+	Persona * vidal = new Persona();
+	vidal->setSexo(SEXO_MASCULINO);
+	vidal->setId("005");
+	vidal->setNombre("Vidal Segura");
+	vidal->setFechaDeNacimiento("1944");
+
+	Lista<RelacionPersona> * relaciones3 = new Lista<RelacionPersona>();
+	RelacionPersona * r4 = new RelacionPersona(patricia->getId(), TIPO_PATERNAL);
+	relaciones3->InsertarFinal(r4);
+
+	grafos->AgregarPersona(vidal, relaciones3);
 
 
 	grafos->DesplegarTodo();
 	cout << "----" << endl;
 	grafos->DesplegarPorPersona();
 	
+	cout << "\nEditando " << ale->getNombre() << endl;
+	ale->setNombre("carlos");
+	grafos->EditarPersona(ale->getId(), ale);
+	grafos->DesplegarPorPersona();
+
+	cout << "\nEditando  relacion (divorcio)" << dannySr->getNombre() << endl;
+	grafos->EditarRelacionPersona(dannySr->getId(), new RelacionPersona(patricia->getId(), TIPO_NINGUNO));
+	grafos->DesplegarPorPersona();
+
+
+
+	cout << "\nEliminando " << dannySr->getNombre() << endl;
+	grafos->EliminarPersona(dannySr->getId());
+	grafos->DesplegarPorPersona();
+
+	//Menu();
+	//Opcion();
 	return 0;
 }
 

@@ -28,4 +28,6 @@ public:
 
 	friend ostream& operator<<(ostream& os, const PersonaGrafo& pg);
 	friend ostream& operator<<(ostream& os,  PersonaGrafo* pg);
+    //bool operator==(PersonaGrafo& der)const;
+	bool operator==(PersonaGrafo der);
 };

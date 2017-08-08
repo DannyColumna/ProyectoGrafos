@@ -38,7 +38,7 @@ void PersonaGrafo::setFechaNacimiento(char *fechaNacimiento)
 	this->fechaNacimiento = fechaNacimiento;
 }
 
-char * PersonaGrafo::getId()
+char * PersonaGrafo::getId() 
 {
 	return this->ID;
 }
@@ -52,8 +52,6 @@ char * PersonaGrafo::getFechaNacimiento() {
 	return this->fechaNacimiento;
 }
 
-
-
 void PersonaGrafo::setSexo(char sexo)
 {
 	this->sexo = sexo;
@@ -63,6 +61,20 @@ char  PersonaGrafo::getSexo()
 {
 	return this->sexo;
 }
+
+//bool PersonaGrafo::operator==(PersonaGrafo & der) const
+//{
+//	return strcmp(this->ID, der.ID) == 0;
+//}
+
+bool PersonaGrafo::operator==(PersonaGrafo der)
+{
+	return strcmp(this->ID, der.ID) == 0;
+}
+
+ 
+
+
 ostream& operator<<(ostream& os, const PersonaGrafo & pg)
 {
 	os << "{" << pg.indiceEnMatriz << "," << pg.ID << "," << pg.nombre << "," << pg.fechaNacimiento << "}";
@@ -74,3 +86,5 @@ ostream& operator<<(ostream& os,  PersonaGrafo * pg)
 	os << "{" << pg->indiceEnMatriz << "," << pg->ID << "," << pg->nombre << "," << pg->fechaNacimiento << "}";
 	return os;
 }
+
+

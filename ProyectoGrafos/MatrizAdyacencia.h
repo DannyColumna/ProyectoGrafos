@@ -7,7 +7,6 @@ class MatrizAdyacencia
 private:
 	int tamano;
 	int **arr;
-	//bool *visited;
 	const int MAX_TAMANO = 10000;
 public:
 
@@ -19,4 +18,6 @@ public:
 	void agregarArista(int, int, int);
 	void desplegar();
 	Lista<RelacionMatriz> * obtenerCamposEnFila(int);
+	void eliminarCamposEnIndice(int);
+	void editarArista(int, int, int);
 };

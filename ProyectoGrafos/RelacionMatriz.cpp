@@ -37,3 +37,10 @@ int RelacionMatriz::getValor()
 {
 	return this->valor;
 }
+
+
+
+bool RelacionMatriz::operator==(RelacionMatriz der) const
+{
+	return (this->indice == der.indice && this->valor == der.valor);
+}

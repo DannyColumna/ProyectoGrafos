@@ -27,7 +27,7 @@ public:
 	void LigarNodoFinal(Nodo<T> *);
 
 	bool EstaVacia();
-
+	bool EliminarPorDato(T *);
 	int Tamano();
 };
 
@@ -88,8 +88,9 @@ void Lista<T>::InsertarUnico(T *objeto)
 		Nodo<T> *Aux = this->GetCabeza();
 		bool duplicado = false;
 		while (Aux->GetSiguiente() != NULL) {
-			T* ojetoAux = Aux->GetObjeto();
-			if (ojetoAux == objeto) {
+			T ojetoAux = *Aux->GetObjeto();
+			T objetoCopia = *objeto;
+			if (ojetoAux == objetoCopia) {
 				duplicado = true;
 				break;
 			}
@@ -169,6 +170,39 @@ T *Lista<T>::DirSiguienteObjeto(T *_objeto) {
 template <class T>
 bool Lista<T>::EstaVacia() {
 	return this->GetCabeza() == NULL;
+}
+
+template<typename T>
+bool Lista<T>::EliminarPorDato(T * dato)
+{
+	bool eliminado = false;
+	
+	if (this->GetCabeza() != NULL) {
+		Nodo<T> *Aux = this->GetCabeza();
+		Nodo<T> *Borrar = NULL;
+		if (Aux->GetObjeto() == dato) {
+			Borrar = Aux;
+			this->SetCabeza(Borrar->GetSiguiente());
+		}
+		else {
+			while (Aux->GetSiguiente() != NULL && Aux->GetSiguiente()->GetObjeto() != dato) {
+				Aux = Aux->GetSiguiente();
+			}
+			if (Aux->GetSiguiente() != NULL) {
+				Borrar = Aux->GetSiguiente();
+			}
+			if (Borrar != NULL) {
+				Aux->SetSiguiente(Borrar->GetSiguiente());
+			}
+		}
+		if (Borrar != NULL) {
+			Borrar->SetSiguiente(NULL);
+			delete(Borrar);
+			//this->tamano--;
+			eliminado = true;
+		}
+	}
+	return eliminado;
 }
 
 template <class T>

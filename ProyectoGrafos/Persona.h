@@ -24,4 +24,5 @@ public:
 	char *getFechaDeNacimiento();
 	friend ostream& operator<<(ostream& os, const Persona p);
 	friend ostream& operator<<(ostream& os, const Persona* p);
+	 
 };

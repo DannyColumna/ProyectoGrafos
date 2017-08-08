@@ -15,5 +15,8 @@ public:
 
 	void setValor(int);
 	int getValor();
+
+	//bool operator==(RelacionMatriz& der)const;
+	bool operator==(RelacionMatriz der)const;
 };
 

@@ -53,6 +53,8 @@ char * Persona::getFechaDeNacimiento()
 	return this->fechaDeNacimiento;
 }
 
+
+
 ostream& operator<<(ostream& os, const Persona  p)
 {
 	os << "{" <<  p.id << "," << p.nombre << ","<< p.fechaDeNacimiento << "}";

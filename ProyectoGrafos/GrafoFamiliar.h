@@ -15,6 +15,8 @@
 #define TIPO_PATERNAL 2
 #define TIPO_CONYUGE 3
 #define TIPO_HERMANO 4
+#define TIPO_NIETO 5
+#define TIPO_SOBRINO 6
 
 
 #define SEXO_MASCULINO 'm'
@@ -31,15 +33,22 @@ private:
 	PersonaGrafo * buscarPersonaPorIndiceEnMatriz(int);
 	//Lista< RelacionMatriz > * obtenerRelacionesEnMatriz(int);
 	Lista< RelacionMatriz > * buscarHermanos(int);
-
+	Lista< RelacionMatriz > * buscarPadres(int);
+	Lista< RelacionMatriz > * buscarAbuelos(int);
+	Lista< RelacionMatriz > * buscarTios(int);
+	PersonaGrafo *buscarPersona(char*);
+	void imprimirPersona(PersonaGrafo*);
 public:
 	GrafoFamiliar();
 	~GrafoFamiliar();
 
 	void AgregarPersona(Persona*, Lista<RelacionPersona> *);
-	void EliminarPersona(int);
-	void EditarPersona(Persona*);
-	PersonaGrafo *BuscarPersona(char*);
+	void EliminarPersona(char*);
+	void EditarRelacionPersona(char*, RelacionPersona*);
+	void EditarPersona(char*, Persona*);
+	void BuscarPersona(char *);
 	void DesplegarPorPersona();
 	void DesplegarTodo();
+
+
 };
