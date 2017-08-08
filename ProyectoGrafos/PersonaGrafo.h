@@ -10,7 +10,7 @@ private:
 	char sexo;
 public:
 	PersonaGrafo();
-	PersonaGrafo(int, char*, char*, char*);
+	PersonaGrafo(int, char*, char*, char*,char);
 	~PersonaGrafo();
 
 	int getIndiceEnMatriz();

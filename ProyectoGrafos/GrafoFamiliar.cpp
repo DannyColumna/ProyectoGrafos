@@ -19,7 +19,8 @@ void GrafoFamiliar::AgregarPersona(Persona *persona, Lista<RelacionPersona> * re
 		this->matrizAdyacencia->getTamano(),
 		persona->getId(),
 		persona->getNombre(),
-		persona->getFechaDeNacimiento());
+		persona->getFechaDeNacimiento(),
+		persona->getSexo());
 	this->personas->InsertarFinal(p);
 	this->matrizAdyacencia->incrementar();
 	if (relaciones != NULL && !relaciones->EstaVacia()) {
@@ -110,8 +111,10 @@ void GrafoFamiliar::EditarPersona(char*id, Persona* persona)
 	p->setSexo(persona->getSexo());
 }
 
-void GrafoFamiliar::BuscarPersona(char *)
+void GrafoFamiliar::BuscarPersona(char * id)
 {
+	PersonaGrafo *p = this->buscarPersona(id);
+	imprimirPersona(p);
 }
 
 PersonaGrafo *GrafoFamiliar::buscarPersona(char * ID) {
@@ -127,24 +130,15 @@ PersonaGrafo *GrafoFamiliar::buscarPersona(char * ID) {
 	return p;
 }
 
-void GrafoFamiliar::imprimirPersona(PersonaGrafo *)
+void GrafoFamiliar::imprimirPersona(PersonaGrafo * persona)
 {
-}
-
-void GrafoFamiliar::DesplegarPorPersona() {
-	Nodo<PersonaGrafo> * auxP = this->personas->GetCabeza();
-	while (auxP != NULL) {
-		PersonaGrafo * persona = auxP->GetObjeto();
-		if (persona == NULL) {
-			auxP = auxP->GetSiguiente();
-			continue;
-		}
+	if (persona != NULL && persona->getIndiceEnMatriz()>=0) {
 		Lista<RelacionMatriz> * relaciones = matrizAdyacencia->obtenerCamposEnFila(persona->getIndiceEnMatriz());//obtenerRelacionesEnMatriz(persona->getIndiceEnMatriz());
-			
+
 		if (relaciones != NULL && !relaciones->EstaVacia()) {
 			imprimirRelaciones(persona, relaciones);
 
-			 
+
 
 			Lista<RelacionMatriz> * hermanos = buscarHermanos(persona->getIndiceEnMatriz());
 			if (hermanos != NULL && !hermanos->EstaVacia()) {
@@ -159,7 +153,19 @@ void GrafoFamiliar::DesplegarPorPersona() {
 		else {
 			cout << persona << " no tiene relaciones familiares" << endl;
 		}
+	}
+}
 
+void GrafoFamiliar::DesplegarPorPersona() {
+	Nodo<PersonaGrafo> * auxP = this->personas->GetCabeza();
+	while (auxP != NULL) {
+		PersonaGrafo * persona = auxP->GetObjeto();
+		if (persona == NULL) {
+			auxP = auxP->GetSiguiente();
+			continue;
+		}
+		
+		imprimirPersona(persona);
 		auxP = auxP->GetSiguiente();
 	}
 }
@@ -169,29 +175,67 @@ void GrafoFamiliar::imprimirRelaciones(PersonaGrafo * p, Lista<RelacionMatriz>* 
 
 	while (auxP != NULL) {
 		RelacionMatriz * r = auxP->GetObjeto();
+
+		PersonaGrafo * pRelacionada = buscarPersonaPorIndiceEnMatriz(r->getIndice());
+		if (pRelacionada == NULL) {
+			cout << " [Error] ";
+			continue;
+		}
+		char sexo = p->getSexo();
 		cout << p->getNombre();
 		if (r->getValor() == TIPO_PATERNAL) {
-			cout << " es padre de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es padre de ";
+			}
+			else {
+				cout << " es madre de ";
+			}
 		}
 		else if (r->getValor() == TIPO_DESCEDIENTE) {
-			cout << " es hijo de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es hijo de ";
+			}
+			else {
+				cout << " es hija de ";
+			}
+			
 		}
 		else if (r->getValor() == TIPO_CONYUGE) {
-			cout << " es conyuge de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es esposo de ";
+			}
+			else {
+				cout << " es esposa de ";
+			}
 		}
 		else if (r->getValor() == TIPO_HERMANO) {
-			cout << " es hermano de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es hermano de ";
+			}
+			else {
+				cout << " es hermana de ";
+			}
 		}
 		else if (r->getValor() == TIPO_NIETO) {
-			cout << " es nieto de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es nieto de ";
+			}
+			else {
+				cout << " es nieta de ";
+			}
 		}
 		else if (r->getValor() == TIPO_SOBRINO) {
-			cout << " es sobrino de ";
+			if (sexo == SEXO_MASCULINO) {
+				cout << " es sobrino de ";
+			}
+			else {
+				cout << " es sobrina de ";
+			}
 		}
 		else {
 			cout << "[ERROR]NO DEBERIA SUCEDER!!";
 		}
-		PersonaGrafo * pRelacionada =  buscarPersonaPorIndiceEnMatriz(r->getIndice());
+		
 		if (pRelacionada == NULL) {
 			cout << " [Error] ";
 		}

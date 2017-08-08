@@ -63,16 +63,19 @@ int main()
 	ale->setId("001");
 	ale->setNombre("Alejandro Columna");
 	ale->setFechaDeNacimiento("1998");
+	ale->setSexo(SEXO_MASCULINO);
 
 	Persona * geo = new Persona();
 	geo->setId("002");
 	geo->setNombre("Geovanny Columna");
 	geo->setFechaDeNacimiento("2003");
+	geo->setSexo(SEXO_MASCULINO);
 
 	Persona * dannySr = new Persona();
 	dannySr->setId("003");
 	dannySr->setNombre("Danny Columna Sr");
 	dannySr->setFechaDeNacimiento("1971");
+	dannySr->setSexo(SEXO_MASCULINO);
 
 	Persona * patricia = new Persona();
 	patricia->setSexo(SEXO_FEMENINO);
@@ -126,6 +129,9 @@ int main()
 	grafos->EditarRelacionPersona(dannySr->getId(), new RelacionPersona(patricia->getId(), TIPO_NINGUNO));
 	grafos->DesplegarPorPersona();
 
+	cout << "\nBuscando por ID " << geo->getId() << endl;
+	grafos->BuscarPersona(geo->getId());
+	//grafos->DesplegarPorPersona();
 
 
 	cout << "\nEliminando " << dannySr->getNombre() << endl;

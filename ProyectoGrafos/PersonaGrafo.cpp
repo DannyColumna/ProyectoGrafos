@@ -6,12 +6,13 @@ PersonaGrafo::PersonaGrafo()
 {
 }
 
-PersonaGrafo::PersonaGrafo(int indice, char* ID, char* nombreCompleto, char* fechaNacimiento)
+PersonaGrafo::PersonaGrafo(int indice, char* ID, char* nombreCompleto, char* fechaNacimiento, char sexo)
 {
 	this->indiceEnMatriz = indice;
 	this->ID = ID;
 	this->nombre = nombreCompleto;
 	this->fechaNacimiento = fechaNacimiento;
+	this->sexo = sexo;
 }
 
 PersonaGrafo::~PersonaGrafo()
